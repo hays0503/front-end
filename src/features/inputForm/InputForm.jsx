@@ -4,10 +4,13 @@ import {
   reducersSetFirstNameSecondName,
   reducersSetDepartment,
   reducersSetPostJob,
+  reducersSetTelephone,
   stateFirstNameSecondName,
   stateDepartment,
   statePostJob,
+  stateTelephone,
 } from "./InputFormSlice";
+import { reducersAddEmployers } from "../tableEmployers/tableEmployersSlice";
 import "./css/InputForm.css";
 
 export function InputForm() {
@@ -21,11 +24,21 @@ export function InputForm() {
     dispatch(reducersSetFirstNameSecondName(FirstNameSecondName));
     dispatch(reducersSetDepartment(Department));
     dispatch(reducersSetPostJob(PostJob));
+    dispatch(reducersSetTelephone(Telephone));
+    dispatch(
+      reducersAddEmployers({
+        FirstNameSecondName,
+        Department,
+        PostJob,
+        Telephone,
+      })
+    );
   };
 
   const selectorFirstNameSecondName = useSelector(stateFirstNameSecondName);
   const selectorDepartment = useSelector(stateDepartment);
   const selectorPostJob = useSelector(statePostJob);
+  const selectorTelephone = useSelector(stateTelephone);
   const dispatch = useDispatch();
 
   return (
@@ -44,7 +57,7 @@ export function InputForm() {
         </li>
 
         <li>
-          <span>Номер телефона</span> <span>{Telephone} </span>
+          <span>Номер телефона</span> <span>{selectorTelephone} </span>
         </li>
       </ul>
       <form method="get">

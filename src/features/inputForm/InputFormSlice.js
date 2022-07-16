@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: 0,
   FirstNameSecondName: "none",
   Department: "none",
   PostJob: "none",
@@ -22,6 +21,9 @@ export const InputFormSlice = createSlice({
     reducersSetPostJob: (state, action) => {
       state.PostJob = action.payload;
     },
+    reducersSetTelephone: (state, action) => {
+      state.Telephone = action.payload;
+    },
   },
 });
 
@@ -29,6 +31,7 @@ export const {
   reducersSetFirstNameSecondName,
   reducersSetDepartment,
   reducersSetPostJob,
+  reducersSetTelephone,
 } = InputFormSlice.actions;
 
 export const stateFirstNameSecondName = (state) =>
@@ -37,5 +40,7 @@ export const stateFirstNameSecondName = (state) =>
 export const stateDepartment = (state) => state.InputForm.Department;
 
 export const statePostJob = (state) => state.InputForm.PostJob;
+
+export const stateTelephone = (state) => state.InputForm.Telephone;
 
 export default InputFormSlice.reducer;
