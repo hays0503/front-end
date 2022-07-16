@@ -1,0 +1,31 @@
+.inputForm {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 80vh;
+
+    background: linear-gradient(rgb(155, 155, 255), rgb(136, 255, 0));
+
+    form {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        justify-content: center;
+        align-items: center;
+    }
+    ul {
+        width: 100%;
+    }
+    li {
+        display: flex;
+        width: 80%;
+        justify-content: space-between;
+    }
+    button {
+        width: 40%;
+        height: 3rem;
+    }
+}
