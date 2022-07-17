@@ -1,53 +1,32 @@
 .inputForm {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   text-align: left;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   width: 50vw;
   height: 80vh;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgb(155, 155, 255)), to(rgb(136, 255, 0)));
-  background: -o-linear-gradient(rgb(155, 155, 255), rgb(136, 255, 0));
+  padding: 15px;
+  margin: 10px;
+  border: 5px solid rgb(155, 0, 155);
   background: linear-gradient(rgb(155, 155, 255), rgb(136, 255, 0));
 }
 .inputForm form {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   text-align: left;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 .inputForm ul {
   width: 100%;
 }
 .inputForm li {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 80%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 .inputForm button {
   width: 40%;
   height: 3rem;
-}
+}/*# sourceMappingURL=InputForm.css.map */
