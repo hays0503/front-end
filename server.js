@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const port = 3001;
-
+const path = require("path");
+const favicon = require("express-favicon");
 const merchant_model = require("./database");
 
 app.use(express.json());
@@ -15,7 +16,17 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get("/", (req, res) => {
+app.use(favicon(__dirname + "/build/favicon.ico"));
+//здесь наше приложение отдаёт статику
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "build")));
+
+//обслуживание html
+app.get("/index", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+app.get("/database", (req, res) => {
   merchant_model
     .getMerchants1()
     .then((response) => {
@@ -26,27 +37,6 @@ app.get("/", (req, res) => {
     });
 });
 
-app.post("/merchants", (req, res) => {
-  merchant_model
-    .createMerchant(req.body)
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
-
-app.delete("/merchants/:id", (req, res) => {
-  merchant_model
-    .deleteMerchant(req.params.id)
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
