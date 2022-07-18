@@ -1,36 +1,52 @@
 const express = require("express");
-const favicon = require("express-favicon");
-const path = require("path");
-const port = process.env.PORT || 8080;
-
-const database = require("./database");
-
-// здесь у нас происходит импорт пакетов и определяется порт нашего сервера
 const app = express();
-app.use(favicon(__dirname + "/build/favicon.ico"));
+const port = 3001;
 
-//здесь наше приложение отдаёт статику
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, "build")));
+const merchant_model = require("./database");
 
-//простой тест сервера
-app.get("/ping", function (req, res) {
-  return res.send("pong");
+app.use(express.json());
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Access-Control-Allow-Headers"
+  );
+  next();
 });
 
-//обслуживание html
-app.get("/index", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-app.listen(port);
-
-app.get("/employers", (req, res) => {
-  database
-    .getMerchants()
+app.get("/", (req, res) => {
+  merchant_model
+    .getMerchants1()
     .then((response) => {
       res.status(200).send(response);
     })
     .catch((error) => {
       res.status(500).send(error);
     });
+});
+
+app.post("/merchants", (req, res) => {
+  merchant_model
+    .createMerchant(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.delete("/merchants/:id", (req, res) => {
+  merchant_model
+    .deleteMerchant(req.params.id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`);
 });
