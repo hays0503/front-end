@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { stateEmployers } from "./tableEmployersSlice";
 import { reducersAddEmployers } from "../tableEmployers/tableEmployersSlice";
@@ -32,8 +32,14 @@ export function TableEmployers() {
   //       });
   //     });
   // }
+  const mounted = useRef();
   useEffect(() => {
-    console.log("mounted");
+    if (!mounted.current) {
+      mounted.current = true;
+      console.log("111");
+    } else {
+      console.log("222");
+    }
   }, []);
 
   // return (
