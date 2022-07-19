@@ -1,12 +1,13 @@
-import {createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  FirstNameSecondName: "none",
-  Department: "none",
-  PostJob: "none",
-  Telephone: "none",
-  status: "idle",
-};
+// const initialState = {
+//   FirstNameSecondName: "none",
+//   Department: "none",
+//   PostJob: "none",
+//   Telephone: "none",
+//   status: "idle",
+// };
+const initialState = {};
 
 export const InputFormSlice = createSlice({
   name: "InputForm",

@@ -1,52 +1,47 @@
 const { Client } = require("pg");
 
-const getMerchants = () => {
-  const client = new Client({
-    connectionString:
-      "postgres://tborpgfisiwxgq:96a7df14564337e9cf751c7c865b20afbc92f8cdf672925807623239f32f29e1@ec2-54-228-218-84.eu-west-1.compute.amazonaws.com:5432/da92in69fg7ad",
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
+const client = new Client({
+  connectionString:
+    "postgres://tborpgfisiwxgq:96a7df14564337e9cf751c7c865b20afbc92f8cdf672925807623239f32f29e1@ec2-54-228-218-84.eu-west-1.compute.amazonaws.com:5432/da92in69fg7ad",
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+client.connect();
 
-  client.connect();
-
-  let rows = [];
-  client.query("SELECT * FROM employers;", (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-      rows.push(JSON.stringify(row));
-      console.log(JSON.stringify(row));
-    }
-    client.end();
-  });
-  return "TOPS45";
-};
-
-const getMerchants1 = () => {
+const getEmployer = () => {
   return new Promise(function (resolve, reject) {
-    const client = new Client({
-      connectionString:
-        "postgres://looeteeoaatpss:5d4136a37a27dd584f7415af9df350d62275334f2faf848f0d210cfa4e6155d4@ec2-52-48-159-67.eu-west-1.compute.amazonaws.com:5432/dfdg6d5qgmud00",
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    });
-
-    client.connect();
-
-    let rows = [];
     client.query("SELECT * FROM employers;", (err, res) => {
       if (err) {
         reject(err);
       }
       resolve(res.rows);
-      client.end();
     });
   });
 };
 
+const addEmployer = (body) => {
+  return new Promise(function (resolve, reject) {
+    const { FirstNameSecondName, Department, PostJob, Telephone } = body;
+    console.log(
+      "INSERT INTO employers (firstnamesecondname, department, postjob, telephone) VALUES($FirstNameSecondName, Department, $PostJob, $Telephone);",
+      [FirstNameSecondName, Department, PostJob, Telephone]
+    );
+
+    client.query(
+      "INSERT INTO employers (firstnamesecondname, department, postjob, telephone) VALUES($1,$2,$3,$4);",
+      [FirstNameSecondName, Department, PostJob, Telephone],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(`A new employers has been added: ${results.rows}`);
+      }
+    );
+  });
+};
+
 module.exports = {
-  getMerchants,
-  getMerchants1,
+  getEmployer,
+  addEmployer,
 };

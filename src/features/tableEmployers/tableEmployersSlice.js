@@ -1,14 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  Employers: [
-    {
-      FirstNameSecondName: "none",
-      Department: "none",
-      PostJob: "none",
-      Telephone: "none",
-    },
-  ],
+  Employers: [],
 };
 
 export const EmployersFormSlice = createSlice({

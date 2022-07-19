@@ -3,7 +3,7 @@ const app = express();
 const port = 3001;
 const path = require("path");
 const favicon = require("express-favicon");
-const merchant_model = require("./database");
+const employer_model = require("./database");
 
 app.use(express.json());
 app.use(function (req, res, next) {
@@ -27,8 +27,19 @@ app.get("/index", function (req, res) {
 });
 
 app.get("/database", (req, res) => {
-  merchant_model
-    .getMerchants1()
+  employer_model
+    .getEmployer()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.post("/add", (req, res) => {
+  employer_model
+    .addEmployer(req.body)
     .then((response) => {
       res.status(200).send(response);
     })
