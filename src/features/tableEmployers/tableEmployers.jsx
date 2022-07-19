@@ -1,7 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { stateEmployers } from "./tableEmployersSlice";
-import { reducersAddEmployers } from "../tableEmployers/tableEmployersSlice";
+import {
+  reducersAddEmployers,
+  clearListEmployers,
+} from "../tableEmployers/tableEmployersSlice";
 import "./css/tableEmployers.css";
 
 export function TableEmployers() {
@@ -9,6 +12,7 @@ export function TableEmployers() {
   const dispatch = useDispatch();
 
   function getEmployer() {
+    dispatch(clearListEmployers());
     fetch("http://localhost:3001/database")
       .then((response) => {
         return response.json();
@@ -41,7 +45,7 @@ export function TableEmployers() {
     } else {
       console.log("222");
     }
-  }, []);
+  });
 
   return (
     <div className="OutputForm">

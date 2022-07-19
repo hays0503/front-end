@@ -11,10 +11,14 @@ export const EmployersFormSlice = createSlice({
     reducersAddEmployers: (state, action) => {
       state.Employers.push(action.payload);
     },
+    clearListEmployers: (state) => {
+      state.Employers = [];
+    },
   },
 });
 
-export const { reducersAddEmployers } = EmployersFormSlice.actions;
+export const { reducersAddEmployers, clearListEmployers } =
+  EmployersFormSlice.actions;
 
 export const stateEmployers = (state) => state.EmployersForm.Employers;
 
