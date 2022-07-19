@@ -12,7 +12,10 @@ export function TableEmployers() {
   const dispatch = useDispatch();
 
   function getEmployer() {
+<<<<<<< HEAD
     dispatch(clearListEmployers());
+=======
+>>>>>>> 6ad2bcb77e486c0e4c84aea47a118ebe7d8dd5c5
     fetch("http://localhost:3001/database")
       .then((response) => {
         return response.json();
