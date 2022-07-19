@@ -11,7 +11,7 @@ export function TableEmployers() {
   const selectorEmployers = useSelector(stateEmployers);
   const dispatch = useDispatch();
 
-  function getEmployer() 
+  function getEmployer() {
     dispatch(clearListEmployers());
     fetch("http://localhost:3001/database")
       .then((response) => {
