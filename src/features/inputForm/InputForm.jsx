@@ -21,6 +21,22 @@ export function InputForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (FirstNameSecondName.trim() === "") {
+      alert("Фио пустое !");
+      return;
+    }
+    if (Department.trim() === "") {
+      alert("Отдел пустое !");
+      return;
+    }
+    if (PostJob.trim() === "") {
+      alert("Должность пустое !");
+      return;
+    }
+    if (Telephone.trim() === "") {
+      alert("Телефон пустое !");
+      return;
+    }
     dispatch(reducersSetFirstNameSecondName(FirstNameSecondName));
     dispatch(reducersSetDepartment(Department));
     dispatch(reducersSetPostJob(PostJob));

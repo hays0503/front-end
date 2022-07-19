@@ -13,13 +13,15 @@ export function TableEmployers() {
 
   function getEmployer() {
     dispatch(clearListEmployers());
+
     fetch("http://localhost:3001/database")
       .then((response) => {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Something went wrong");
       })
       .then((data) => {
-        console.log("1: ", data);
-
         data.map((employer) => {
           let item = {
             FirstNameSecondName: "",
@@ -34,8 +36,14 @@ export function TableEmployers() {
           console.log("2", item);
           dispatch(reducersAddEmployers(item));
         });
+      })
+      .catch((error) => {
+        if (error) {
+          alert("Что то случилось с бд ! ");
+        }
       });
   }
+
   const mounted = useRef();
   useEffect(() => {
     if (!mounted.current) {
