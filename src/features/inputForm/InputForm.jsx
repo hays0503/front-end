@@ -22,21 +22,42 @@ export function InputForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (FirstNameSecondName.trim() === "") {
-      alert("Фио пустое !");
+      alert("ФИО пустое !");
       return;
     }
+    if (/\d/.test(FirstNameSecondName)) {
+      console.log(/\d/.test(FirstNameSecondName));
+      alert("ФИО не может быть числом");
+      return;
+    }
+    //////////////////////////////////////////////////////
     if (Department.trim() === "") {
       alert("Отдел пустое !");
       return;
     }
+    if (!isNaN(Number(Department.trim()))) {
+      alert("Отдел не может быть числом");
+      return;
+    }
+    //////////////////////////////////////////////////////
     if (PostJob.trim() === "") {
       alert("Должность пустое !");
       return;
     }
+    if (!isNaN(Number(PostJob.trim()))) {
+      alert("Должность не может быть числом");
+      return;
+    }
+    /////////////////////////////////////////////////////
     if (Telephone.trim() === "") {
       alert("Телефон пустое !");
       return;
     }
+    if (isNaN(Number(Telephone.trim()))) {
+      alert("Телефон не может быть словом/строкой!");
+      return;
+    }
+
     dispatch(reducersSetFirstNameSecondName(FirstNameSecondName));
     dispatch(reducersSetDepartment(Department));
     dispatch(reducersSetPostJob(PostJob));
@@ -77,23 +98,7 @@ export function InputForm() {
 
   return (
     <div className="inputForm">
-      <ul>
-        <li>
-          <span>ФИО</span> <span>{selectorFirstNameSecondName}</span>
-        </li>
-
-        <li>
-          <span>Отдел</span> <span>{selectorDepartment} </span>
-        </li>
-
-        <li>
-          <span>Должность</span> <span>{selectorPostJob} </span>
-        </li>
-
-        <li>
-          <span>Номер телефона</span> <span>{selectorTelephone} </span>
-        </li>
-      </ul>
+      Форма для добавление записей
       <form method="get">
         <ul>
           <li>
@@ -140,7 +145,7 @@ export function InputForm() {
             />
           </li>
         </ul>
-        <button onClick={handleSubmit}>Скопировать</button>
+        <button onClick={handleSubmit}>⚡ Добавить в б/д ⚡</button>
       </form>
     </div>
   );

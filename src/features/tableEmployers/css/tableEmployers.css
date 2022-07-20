@@ -1,11 +1,34 @@
+.OutputForm {
+  width: 45vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.OutputForm button {
+  padding: 10px;
+  margin: 5px;
+  background-color: #216960;
+}
+.OutputForm button:hover {
+  background-color: #37b5a5;
+}
+
 .table_dark {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   font-size: 14px;
-  width: 640px;
+  width: 45vw;
   text-align: left;
   border-collapse: collapse;
+  border: 5px solid;
   background: #252f48;
   margin: 10px;
+}
+@media only screen and (min-width: 320px) {
+  .table_dark {
+    font-size: 12px;
+    margin: 5px;
+  }
 }
 .table_dark th {
   color: #edb749;
@@ -26,4 +49,7 @@
 }
 .table_dark tr:hover td {
   text-decoration: underline;
+}
+.table_dark tr:nth-child(2n) {
+  background: #4e4e4e;
 }/*# sourceMappingURL=tableEmployers.css.map */

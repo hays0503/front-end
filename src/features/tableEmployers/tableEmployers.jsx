@@ -57,14 +57,16 @@ export function TableEmployers() {
 
   return (
     <div className="OutputForm">
-      <button onClick={() => getEmployer()}>update</button>
+      <button onClick={() => getEmployer()}>
+        ⚡Обновить состояние б/д принудительно⚡
+      </button>
       <table className="table_dark">
         <tbody>
           <tr>
-            <th>FirstNameSecondName</th>
-            <th>stateDepartment</th>
-            <th>statePostJob</th>
-            <th>stateTelephone</th>
+            <th>ФИО</th>
+            <th>Отдел</th>
+            <th>Пост</th>
+            <th>Телефон</th>
           </tr>
           {selectorEmployers.map(
             ({ FirstNameSecondName, Department, PostJob, Telephone }) => (
