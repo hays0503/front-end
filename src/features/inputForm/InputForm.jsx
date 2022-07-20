@@ -90,10 +90,6 @@ export function InputForm() {
       });
   };
 
-  const selectorFirstNameSecondName = useSelector(stateFirstNameSecondName);
-  const selectorDepartment = useSelector(stateDepartment);
-  const selectorPostJob = useSelector(statePostJob);
-  const selectorTelephone = useSelector(stateTelephone);
   const dispatch = useDispatch();
 
   return (
