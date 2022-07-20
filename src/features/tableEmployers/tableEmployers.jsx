@@ -14,7 +14,7 @@ export function TableEmployers() {
   function getEmployer() {
     dispatch(clearListEmployers());
 
-    fetch("http://localhost:3001/database")
+    fetch("http://localhost:3000/database")
       .then((response) => {
         if (response.ok) {
           return response.json();

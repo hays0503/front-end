@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   reducersSetFirstNameSecondName,
   reducersSetDepartment,
   reducersSetPostJob,
   reducersSetTelephone,
-  stateFirstNameSecondName,
-  stateDepartment,
-  statePostJob,
-  stateTelephone,
 } from "./InputFormSlice";
 import { reducersAddEmployers } from "../tableEmployers/tableEmployersSlice";
 import "./css/InputForm.css";
@@ -70,7 +66,7 @@ export function InputForm() {
         Telephone,
       })
     );
-    fetch("http://localhost:3001/add", {
+    fetch("http://localhost:3000/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
