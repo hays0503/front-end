@@ -14,7 +14,7 @@ export function TableEmployers() {
   function getEmployer() {
     dispatch(clearListEmployers());
 
-    fetch("https://zavod-kirova.herokuapp.com/database")
+    fetch(process.env.PUBLIC_URL+"/database")
       .then((response) => {
         if (response.ok) {
           return response.json();

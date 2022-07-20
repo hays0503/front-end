@@ -66,7 +66,7 @@ export function InputForm() {
         Telephone,
       })
     );
-    fetch("https://zavod-kirova.herokuapp.com/add", {
+    fetch(process.env.PUBLIC_URL + "/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
