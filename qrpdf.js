@@ -1,24 +1,20 @@
 const qr_pdf = require("pdf-lib");
 var QRCode = require("qrcode");
 
-function createQr(urlPdfDatabase) {
-  const qrcode = QRCode.toDataURL(urlPdfDatabase);
-  console.log("qrcode: ", qrcode.resolve());
+async function createQr(urlPdfDatabase) {
+  QRCode.toDataURL(urlPdfDatabase, function (err, qr) {
+    modifyPdf(urlPdfDatabase, qr);
+  });
 }
 
-function setQr(url) {
-  console.log(url);
-}
-
-async function modifyPdf(urlPdfDatabase) {
+async function modifyPdf(urlPdfDatabase, qr) {
   //ссылка на pdf из бд
   const url = urlPdfDatabase;
   const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
 
   const pdfDoc = await qr_pdf.PDFDocument.load(existingPdfBytes);
   //////////////////////////////////////////////////////////////////////////////
-  const toDataURLImage = createQr(url);
-  console.log("toDataURLImage: ", toDataURLImage);
+  console.log("qr: ", qr);
   //////////////////////////////////////////////////////////////////////////////
   const jpgUrl = "https://pdf-lib.js.org/assets/cat_riding_unicorn.jpg";
 
@@ -43,7 +39,7 @@ async function modifyPdf(urlPdfDatabase) {
 }
 const getQrPdf = (urlPdfDatabase) => {
   return new Promise(function (resolve, reject) {
-    resolve(modifyPdf(urlPdfDatabase));
+    resolve(createQr(urlPdfDatabase));
   });
 };
 
