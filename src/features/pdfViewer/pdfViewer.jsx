@@ -17,7 +17,7 @@ const PdfViewer = memo(() => {
         throw new Error("Something went wrong");
       })
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         base64pdf = data;
         pdfViewerRef.current.src = data;
       })

@@ -23,10 +23,10 @@ const getEmployer = () => {
 const addEmployer = (body) => {
   return new Promise(function (resolve, reject) {
     const { FirstNameSecondName, Department, PostJob, Telephone } = body;
-    console.log(
-      "INSERT INTO employers (firstnamesecondname, department, postjob, telephone) VALUES($FirstNameSecondName, Department, $PostJob, $Telephone);",
-      [FirstNameSecondName, Department, PostJob, Telephone]
-    );
+    // console.log(
+    //   "INSERT INTO employers (firstnamesecondname, department, postjob, telephone) VALUES($FirstNameSecondName, Department, $PostJob, $Telephone);",
+    //   [FirstNameSecondName, Department, PostJob, Telephone]
+    // );
 
     client.query(
       "INSERT INTO employers (firstnamesecondname, department, postjob, telephone) VALUES($1,$2,$3,$4);",
