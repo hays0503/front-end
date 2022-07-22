@@ -16,6 +16,19 @@ const generateQR = (text) => {
   }
 };
 
+function buildQrCodeUrl(str) {
+  return new Promise(function (resolve, reject) {
+    QRCode.toDataURL(str, function (err, url) {
+      if (err) {
+        console.error("buildQrCodeUrl: ", err, str);
+        reject(err);
+        return;
+      }
+      resolve(url);
+    });
+  });
+}
+
 async function modifyPdf(urlPdfDatabase) {
   //ссылка на pdf из бд
   const url = urlPdfDatabase;
@@ -23,7 +36,7 @@ async function modifyPdf(urlPdfDatabase) {
   const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
   const pdfDoc = await qr_pdf.PDFDocument.load(existingPdfBytes);
   //////////////////////////////////////////////////////////////////////////////
-  const qrImage = await generateQR(urlPdfDatabase);
+  const qrImage = buildQrCodeUrl(urlPdfDatabase);
   console.log("const qrImage ", qrImage);
   const pngImage = pdfDoc.embedPng(qrImage);
   //////////////////////////////////////////////////////////////////////////////
