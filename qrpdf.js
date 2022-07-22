@@ -7,20 +7,31 @@ async function createQr(urlPdfDatabase) {
   });
 }
 
-async function modifyPdf(urlPdfDatabase, qr) {
+const generateQR = async (text) => {
+  try {
+    //console.log(await QRCode.toDataURL(text));
+    return await QRCode.toDataURL(text);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+async function modifyPdf(urlPdfDatabase) {
   //ссылка на pdf из бд
   const url = urlPdfDatabase;
   const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
 
   const pdfDoc = await qr_pdf.PDFDocument.load(existingPdfBytes);
   //////////////////////////////////////////////////////////////////////////////
-  console.log("qr: ", qr);
-  //////////////////////////////////////////////////////////////////////////////
   const jpgUrl = "https://pdf-lib.js.org/assets/cat_riding_unicorn.jpg";
 
   const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer());
 
-  const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
+  // console.log("qr: ", await generateQR(urlPdfDatabase));
+  console.log("qr: ", jpgImageBytes);
+  //////////////////////////////////////////////////////////////////////////////
+
+  const jpgImage = await pdfDoc.embedJpg(await generateQR(urlPdfDatabase));
 
   const jpgDims = jpgImage.scale(0.5);
 
@@ -39,7 +50,7 @@ async function modifyPdf(urlPdfDatabase, qr) {
 }
 const getQrPdf = (urlPdfDatabase) => {
   return new Promise(function (resolve, reject) {
-    resolve(createQr(urlPdfDatabase));
+    resolve(modifyPdf(urlPdfDatabase));
   });
 };
 
