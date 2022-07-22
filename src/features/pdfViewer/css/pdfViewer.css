@@ -1,5 +1,13 @@
 .pdfViewer {
-  align-self: flex-start;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
   width: 95vw;
   height: 85vh;
-}/*# sourceMappingURL=pdfViewer.css.map */
+}
+
+.imgPlaceholder {
+  width: 50%;
+  height: 50%;
+  -webkit-clip-path: inset(5px 21% 5px 23% round 5%);
+          clip-path: inset(5px 21% 5px 23% round 5%);
+}

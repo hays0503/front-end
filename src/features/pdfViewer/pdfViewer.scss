@@ -3,3 +3,8 @@
   width: 95vw;
   height: 85vh;
 }
+.imgPlaceholder {
+  width: 50%;
+  height: 50%;
+  clip-path: inset(5px 21% 5px 23% round 5%);
+}

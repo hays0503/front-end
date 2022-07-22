@@ -1,30 +1,54 @@
 .inputForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   text-align: left;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   min-width: 30vw;
   height: 80vh;
   padding: 5px;
   margin: 10px;
   border: 5px solid rgb(155, 0, 155);
+  background: -webkit-gradient(linear, left top, left bottom, from(rgb(155, 155, 255)), to(rgb(136, 255, 0)));
+  background: -o-linear-gradient(rgb(155, 155, 255), rgb(136, 255, 0));
   background: linear-gradient(rgb(155, 155, 255), rgb(136, 255, 0));
 }
 .inputForm form {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   text-align: left;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .inputForm ul {
   width: 100%;
 }
 .inputForm li {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 80%;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .inputForm button {
   width: 40%;
@@ -33,4 +57,4 @@
 }
 .inputForm button:hover {
   background-color: #37b5a5;
-}/*# sourceMappingURL=InputForm.css.map */
+}

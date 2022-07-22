@@ -2,14 +2,11 @@ import React, { memo, useRef, useEffect } from "react";
 import "./css/pdfViewer.css";
 
 const PdfViewer = memo(() => {
-  let base64pdf = null;
   const pdfViewerRef = useRef();
-  const setPdf = () => {
-    fetch(
-      //   process.env.PUBLIC_URL +
-      "http://localhost:3001/" +
-        "get_pdf?urlpdf=https://pdf-lib.js.org/assets/with_update_sections.pdf"
-    )
+  const pdfUrlRef = useRef(null);
+
+  const setPdf = (urlPdf) => {
+    fetch(process.env.PUBLIC_URL + "get_pdf?urlpdf=" + urlPdf)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -17,8 +14,7 @@ const PdfViewer = memo(() => {
         throw new Error("Something went wrong");
       })
       .then((data) => {
-        //console.log(data);
-        base64pdf = data;
+        console.log(data);
         pdfViewerRef.current.src = data;
       })
       .catch((error) => {
@@ -26,6 +22,11 @@ const PdfViewer = memo(() => {
           alert("Что то случилось с бд ! ");
         }
       });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setPdf(pdfUrlRef.current.value);
   };
 
   const mounted = useRef();
@@ -42,13 +43,27 @@ const PdfViewer = memo(() => {
 
   return (
     <div className="pdfViewer">
-      {base64pdf}
-      <iframe
-        title="pdf"
-        width={"100%"}
-        height={"100%"}
-        ref={pdfViewerRef}
-      ></iframe>
+      <div>
+        <p>Загрузить и изменить(добавить qr-код) pdf</p>
+        <input type="text" ref={pdfUrlRef} placeholder="Ссылку на pdf сюда" />
+        <button onClick={() => handleSubmit}>Запросить изменённый pdf </button>
+      </div>
+      <div>
+        {true ? (
+          <img
+            className="imgPlaceholder"
+            src="https://icdn.lenta.ru/images/2017/01/26/14/20170126145423288/preview_007275b2bef5897c77d648cac2b0097c.jpg"
+            alt="img"
+          />
+        ) : (
+          <iframe
+            title="pdf"
+            width={"100%"}
+            height={"100%"}
+            ref={pdfViewerRef}
+          ></iframe>
+        )}
+      </div>
     </div>
   );
 });

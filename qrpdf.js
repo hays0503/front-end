@@ -1,16 +1,16 @@
 const qr_pdf = require("pdf-lib");
 var QRCode = require("qrcode");
 
-async function createQr(urlPdfDatabase) {
-  QRCode.toDataURL(urlPdfDatabase, function (err, qr) {
-    modifyPdf(urlPdfDatabase, qr);
-  });
-}
-
 const generateQR = async (text) => {
+  const opts = {
+    errorCorrectionLevel: "M",
+    type: "image/png",
+    quality: 0.92,
+    margin: 1,
+  };
   try {
     //console.log(await QRCode.toDataURL(text));
-    return await QRCode.toDataURL(text);
+    return await QRCode.toDataURL(text, opts);
   } catch (err) {
     console.error(err);
   }
@@ -20,32 +20,36 @@ async function modifyPdf(urlPdfDatabase) {
   //ссылка на pdf из бд
   const url = urlPdfDatabase;
   const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
-
   const pdfDoc = await qr_pdf.PDFDocument.load(existingPdfBytes);
   //////////////////////////////////////////////////////////////////////////////
-  const jpgUrl = "https://pdf-lib.js.org/assets/cat_riding_unicorn.jpg";
-
-  const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer());
-
-  // console.log("qr: ", await generateQR(urlPdfDatabase));
-  console.log("qr: ", jpgImageBytes);
+  const qrImage = await generateQR(urlPdfDatabase);
+  const pngImage = await pdfDoc.embedPng(qrImage);
   //////////////////////////////////////////////////////////////////////////////
+  const jpgUrl = 'https://pdf-lib.js.org/assets/cat_riding_unicorn.jpg'  
+  const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer())
+  const jpgImage = await pdfDoc.embedJpg(jpgImageBytes)
 
-  const jpgImage = await pdfDoc.embedJpg(await generateQR(urlPdfDatabase));
 
-  const jpgDims = jpgImage.scale(0.5);
+  const jpgDims = jpgImage.scale(0.5)
+  const pngDims = pngImage.scale(0.5)
 
-  const page = pdfDoc.addPage();
+  const page = pdfDoc.addPage()
 
   page.drawImage(jpgImage, {
     x: page.getWidth() / 2 - jpgDims.width / 2,
     y: page.getHeight() / 2 - jpgDims.height / 2 + 250,
     width: jpgDims.width,
     height: jpgDims.height,
-  });
+  })
+  page.drawImage(pngImage, {
+    x: page.getWidth() / 2 - pngDims.width / 2 + 75,
+    y: page.getHeight() / 2 - pngDims.height + 250,
+    width: pngDims.width,
+    height: pngDims.height,
+  })
   ///////////////////////////////////////////////////////////////////////////////
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  //console.log(pdfDataUri);
+  console.log("console.log(pdfDataUri); ", pdfDataUri);
   return JSON.stringify(pdfDataUri);
 }
 const getQrPdf = (urlPdfDatabase) => {
