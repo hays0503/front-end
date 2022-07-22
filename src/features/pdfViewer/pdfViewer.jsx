@@ -7,11 +7,8 @@ const PdfViewer = memo(() => {
   const [isUrlEmpty, setIsUrlEmpty] = useState(false);
 
   const setPdf = (urlPdf) => {
-    urlPdf = process.env.PUBLIC_URL
-      ? process.env.PUBLIC_URL
-      : "http://localhost:3001" + "/get_pdf?urlpdf=" + urlPdf;
-    console.log(urlPdf);
-    fetch(urlPdf)
+    console.log(process.env.PUBLIC_URL + "/get_pdf?urlpdf=" + urlPdf);
+    fetch(process.env.PUBLIC_URL + "/get_pdf?urlpdf=" + urlPdf)
       .then((response) => {
         if (response.ok) {
           return response.json();
