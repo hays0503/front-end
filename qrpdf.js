@@ -10,7 +10,7 @@ const generateQR = async (text) => {
   };
   try {
     //console.log(await QRCode.toDataURL(text));
-    return await QRCode.toDataURL(text, opts);
+    return QRCode.toDataURL(text, opts);
   } catch (err) {
     console.error(err);
   }
