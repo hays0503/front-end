@@ -50,7 +50,7 @@ app.post("/add", (req, res) => {
 });
 
 app.get("/get_pdf", (req, res) => {
-  console.log("/get_pdf");
+  console.log("Выполнен запрос:    ", req.query.urlpdf);
   qr_pdf
     .getQrPdf(req.query.urlpdf)
     .then((response) => {
