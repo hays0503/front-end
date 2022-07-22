@@ -1,15 +1,13 @@
 import React, { memo, useRef, useEffect, useState } from "react";
 import "./css/pdfViewer.css";
 
-const PdfViewer = memo(() => {
+const PdfViewer = () => {
   const pdfViewerRef = useRef();
   const pdfUrlRef = useRef(null);
   const [isUrlEmpty, setIsUrlEmpty] = useState(false);
 
   const setPdf = (urlPdf) => {
-    console.log(
-      process.env.PUBLIC_URL + "/get_pdf?urlpdf=" + urlPdf
-    );
+    console.log(process.env.PUBLIC_URL + "/get_pdf?urlpdf=" + urlPdf);
     fetch(process.env.PUBLIC_URL + "/get_pdf?urlpdf=" + urlPdf)
       .then((response) => {
         if (response.ok) {
@@ -82,6 +80,6 @@ const PdfViewer = memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default PdfViewer;
