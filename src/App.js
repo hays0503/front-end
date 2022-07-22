@@ -1,6 +1,7 @@
 import React from "react";
 import { InputForm } from "./features/inputForm/InputForm";
 import { TableEmployers } from "./features/tableEmployers/tableEmployers";
+import PdfViewer from "./features/pdfViewer/pdfViewer";
 import "./App.css";
 
 function App() {
@@ -13,8 +14,9 @@ function App() {
         </span>
       </div>
       <header className="App-header">
-        <InputForm />
-        <TableEmployers />
+        {/* <InputForm />
+        <TableEmployers /> */}
+        <PdfViewer />
       </header>
     </div>
   );
