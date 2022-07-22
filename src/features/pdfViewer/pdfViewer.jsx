@@ -69,6 +69,11 @@ const PdfViewer = memo(() => {
           />
         ) : (
           <iframe
+            style={{
+              alignSelf: "flex-start",
+              width: "95vw",
+              height: "85vh",
+            }}
             title="pdf"
             width={"100%"}
             height={"100%"}
