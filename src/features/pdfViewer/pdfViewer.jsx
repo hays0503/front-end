@@ -8,9 +8,9 @@ const PdfViewer = memo(() => {
 
   const setPdf = (urlPdf) => {
     console.log(
-      "https://zavod-kirova.herokuapp.com" + "/get_pdf?urlpdf=" + urlPdf
+      process.env.PUBLIC_URL + "/get_pdf?urlpdf=" + urlPdf
     );
-    fetch("https://zavod-kirova.herokuapp.com" + "/get_pdf?urlpdf=" + urlPdf)
+    fetch(process.env.PUBLIC_URL + "/get_pdf?urlpdf=" + urlPdf)
       .then((response) => {
         if (response.ok) {
           return response.json();
