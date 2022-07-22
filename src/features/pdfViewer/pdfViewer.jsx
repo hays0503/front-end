@@ -36,6 +36,7 @@ const PdfViewer = () => {
     if (!mounted.current) {
       mounted.current = true;
       console.log("setPdf 1-1 рендер");
+      console.log("process.env.PUBLIC_URL: ", process.env.PUBLIC_URL);
       //setPdf();
       console.log("setPdf 1-2 рендер");
     } else {
