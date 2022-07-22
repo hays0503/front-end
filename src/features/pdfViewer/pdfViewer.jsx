@@ -1,12 +1,17 @@
-import React, { memo, useRef, useEffect } from "react";
+import React, { memo, useRef, useEffect, useState } from "react";
 import "./css/pdfViewer.css";
 
 const PdfViewer = memo(() => {
   const pdfViewerRef = useRef();
   const pdfUrlRef = useRef(null);
+  const [isUrlEmpty, setIsUrlEmpty] = useState(false);
 
   const setPdf = (urlPdf) => {
-    fetch(process.env.PUBLIC_URL + "get_pdf?urlpdf=" + urlPdf)
+    urlPdf = process.env.PUBLIC_URL
+      ? process.env.PUBLIC_URL
+      : "http://localhost:3001/" + "get_pdf?urlpdf=" + urlPdf;
+    console.log(urlPdf);
+    fetch(urlPdf)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -25,7 +30,7 @@ const PdfViewer = memo(() => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    setIsUrlEmpty(true);
     setPdf(pdfUrlRef.current.value);
   };
 
@@ -34,7 +39,7 @@ const PdfViewer = memo(() => {
     if (!mounted.current) {
       mounted.current = true;
       console.log("setPdf 1-1 рендер");
-      setPdf();
+      //setPdf();
       console.log("setPdf 1-2 рендер");
     } else {
       console.log("setPdf 3 рендер");
@@ -46,12 +51,19 @@ const PdfViewer = memo(() => {
       <div>
         <p>Загрузить и изменить(добавить qr-код) pdf</p>
         <input type="text" ref={pdfUrlRef} placeholder="Ссылку на pdf сюда" />
-        <button onClick={() => handleSubmit}>Запросить изменённый pdf </button>
+        <button onClick={() => handleSubmit()}>
+          Запросить изменённый pdf{" "}
+        </button>
       </div>
       <div>
-        {true ? (
+        {!isUrlEmpty ? (
           <img
-            className="imgPlaceholder"
+            style={{
+              width: "50%",
+              height: "50%",
+              webKitClipPath: "inset(5px 21% 5px 23% round 5%)",
+              clipPath: "inset(5px 21% 5px 23% round 5%)",
+            }}
             src="https://icdn.lenta.ru/images/2017/01/26/14/20170126145423288/preview_007275b2bef5897c77d648cac2b0097c.jpg"
             alt="img"
           />
