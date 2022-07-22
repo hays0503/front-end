@@ -1,7 +1,7 @@
 const qr_pdf = require("pdf-lib");
 var QRCode = require("qrcode");
 
-const generateQR = async (text) => {
+const generateQR = (text) => {
   const opts = {
     errorCorrectionLevel: "M",
     type: "image/png",
