@@ -1,7 +1,7 @@
 const qr_pdf = require("./qrpdf");
 const express = require("express");
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT | 3001;
 const path = require("path");
 const favicon = require("express-favicon");
 const employer_model = require("./database");
@@ -50,6 +50,7 @@ app.post("/add", (req, res) => {
 });
 
 app.get("/get_pdf", (req, res) => {
+  console.log("/get_pdf");
   qr_pdf
     .getQrPdf(req.query.urlpdf)
     .then((response) => {
