@@ -25,7 +25,7 @@ async function modifyPdf(urlPdfDatabase) {
   //////////////////////////////////////////////////////////////////////////////
   const qrImage = await generateQR(urlPdfDatabase);
   console.log("const qrImage ", qrImage);
-  const pngImage = await pdfDoc.embedPng(qrImage);
+  const pngImage = pdfDoc.embedPng(qrImage);
   //////////////////////////////////////////////////////////////////////////////
   const jpgUrl = "https://pdf-lib.js.org/assets/cat_riding_unicorn.jpg";
   const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer());
