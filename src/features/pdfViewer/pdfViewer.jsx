@@ -9,7 +9,7 @@ const PdfViewer = memo(() => {
   const setPdf = (urlPdf) => {
     urlPdf = process.env.PUBLIC_URL
       ? process.env.PUBLIC_URL
-      : "http://localhost:3001/" + "get_pdf?urlpdf=" + urlPdf;
+      : "http://localhost:3001" + "/get_pdf?urlpdf=" + urlPdf;
     console.log(urlPdf);
     fetch(urlPdf)
       .then((response) => {
