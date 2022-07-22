@@ -54,6 +54,7 @@ app.get("/get_pdf", (req, res) => {
   qr_pdf
     .getQrPdf(req.query.urlpdf)
     .then((response) => {
+      console.log(response);
       res.status(200).send(response);
     })
     .catch((error) => {
