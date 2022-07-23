@@ -18,8 +18,14 @@ const generateQR = (text) => {
 };
 
 function buildQrCodeUrl(str) {
+  const opts = {
+    errorCorrectionLevel: "M",
+    type: "image/png",
+    quality: 0.92,
+    margin: 1,
+  };
   return new Promise(function (resolve, reject) {
-    QRCode.toDataURL(str, function (err, url) {
+    QRCode.toDataURL(str, opts, function (err, url) {
       if (err) {
         console.error("buildQrCodeUrl: ", err, str);
         reject(err);
@@ -38,19 +44,18 @@ async function modifyPdf(urlPdfDatabase) {
   const existingPdfBytes = await FetchApi(url).then((res) => res.arrayBuffer());
   const pdfDoc = await qr_pdf.PDFDocument.load(existingPdfBytes);
   ////////////////////////////////////////////////////////////////////////////
-  const qrImage = await buildQrCodeUrl(urlPdfDatabase);
+  const qrImage = await generateQR(urlPdfDatabase);
   console.log("const qrImage ", qrImage);
-  const pngImage = pdfDoc.embedPng(qrImage);
+  const pngImage = await pdfDoc.embedPng(qrImage);
   //////////////////////////////////////////////////////////////////////////////
-  const pngDims = pngImage.scale(0.5);
 
   const page = pdfDoc.addPage();
 
   page.drawImage(pngImage, {
-    x: page.getWidth() / 2 - pngDims.width / 2 + 75,
-    y: page.getHeight() / 2 - pngDims.height + 250,
-    width: pngDims.width,
-    height: pngDims.height,
+    x: page.getWidth() / 2 - 256 / 2 + 75,
+    y: page.getHeight() / 2 - 256 + 250,
+    width: 256,
+    height: 256,
   });
   /////////////////////////////////////////////////////////////////////////////
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
