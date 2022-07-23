@@ -37,22 +37,22 @@ async function modifyPdf(urlPdfDatabase) {
   console.log("const url", url);
   const existingPdfBytes = await FetchApi(url).then((res) => res.arrayBuffer());
   const pdfDoc = await qr_pdf.PDFDocument.load(existingPdfBytes);
+  ////////////////////////////////////////////////////////////////////////////
+  const qrImage = await buildQrCodeUrl(urlPdfDatabase);
+  console.log("const qrImage ", qrImage);
+  const pngImage = pdfDoc.embedPng(qrImage);
   //////////////////////////////////////////////////////////////////////////////
-  // const qrImage = await buildQrCodeUrl(urlPdfDatabase);
-  // console.log("const qrImage ", qrImage);
-  // const pngImage = pdfDoc.embedPng(qrImage);
-  // //////////////////////////////////////////////////////////////////////////////
-  // const pngDims = pngImage.scale(0.5);
+  const pngDims = pngImage.scale(0.5);
 
-  // const page = pdfDoc.addPage();
+  const page = pdfDoc.addPage();
 
-  // page.drawImage(pngImage, {
-  //   x: page.getWidth() / 2 - pngDims.width / 2 + 75,
-  //   y: page.getHeight() / 2 - pngDims.height + 250,
-  //   width: pngDims.width,
-  //   height: pngDims.height,
-  // });
-  ///////////////////////////////////////////////////////////////////////////////
+  page.drawImage(pngImage, {
+    x: page.getWidth() / 2 - pngDims.width / 2 + 75,
+    y: page.getHeight() / 2 - pngDims.height + 250,
+    width: pngDims.width,
+    height: pngDims.height,
+  });
+  /////////////////////////////////////////////////////////////////////////////
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   console.log("console.log(pdfDataUri); ", pdfDataUri);
   return JSON.stringify(pdfDataUri);
