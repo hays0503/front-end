@@ -1,5 +1,6 @@
 const qr_pdf = require("pdf-lib");
 var QRCode = require("qrcode");
+var FetchApi = require("node-fetch");
 
 const generateQR = (text) => {
   const opts = {
@@ -34,7 +35,7 @@ async function modifyPdf(urlPdfDatabase) {
   //ссылка на pdf из бд
   const url = urlPdfDatabase;
   console.log("const url", url);
-  const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
+  const existingPdfBytes = await FetchApi(url).then((res) => res.arrayBuffer());
   const pdfDoc = await qr_pdf.PDFDocument.load(existingPdfBytes);
   //////////////////////////////////////////////////////////////////////////////
   // const qrImage = await buildQrCodeUrl(urlPdfDatabase);
